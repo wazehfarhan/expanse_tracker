@@ -1,0 +1,175 @@
+/* ===== General ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ===== Pages ===== */
+.page {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  position: absolute;
+  opacity: 0;
+  transform: translateY(50px);
+  pointer-events: none;
+  transition: 0.5s all;
+}
+
+.page.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* ===== Headings ===== */
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.sub-text {
+  text-align: center;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* ===== Forms ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: 0.3s all;
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: 0.3s all;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+/* ===== Back Button ===== */
+.back-home {
+  background: #eee;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.back-home:hover {
+  background: #ddd;
+  transform: scale(1.05);
+}
+
+/* ===== Home Buttons ===== */
+.home-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* ===== Dashboard ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-profile {
+  text-align: right;
+  font-size: 14px;
+  color: #555;
+}
+
+.user-profile strong {
+  font-size: 16px;
+  color: #007bff;
+}
+
+.dashboard-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* ===== Table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  word-wrap: break-word;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+tbody tr.added {
+  animation: fadeIn 0.5s;
+}
+
+tbody tr.removed {
+  animation: fadeOut 0.5s forwards;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  0% {opacity:0; transform: translateY(-20px);}
+  100% {opacity:1; transform: translateY(0);}
+}
+
+@keyframes fadeOut {
+  0% {opacity:1; transform: translateY(0);}
+  100% {opacity:0; transform: translateY(-20px);}
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 500px) {
+  .page {
+    width: 90%;
+    padding: 20px;
+  }
+}

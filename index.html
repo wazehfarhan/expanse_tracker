@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Home Page -->
+<div class="page home active">
+  <h1>Welcome to Expense Tracker</h1>
+  <p class="sub-text">Track your monthly expenses easily</p>
+  <div class="home-buttons">
+    <button id="show-login">Login</button>
+    <button id="show-signup">Sign Up</button>
+  </div>
+</div>
+
+<!-- Signup Page -->
+<div class="page signup">
+  <h1>Create Account</h1>
+  <form id="signup-form">
+    <input type="text" id="first-name" placeholder="First Name" required>
+    <input type="text" id="last-name" placeholder="Last Name" required>
+    <input type="email" id="signup-email" placeholder="Email" required>
+    <input type="text" id="phone" placeholder="Phone" required>
+    <select id="gender" required>
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <input type="password" id="signup-password" placeholder="Password" required>
+    <button type="submit">Sign Up</button>
+  </form>
+  <button class="back-home"><span class="icon">&#8592;</span> Back</button>
+</div>
+
+<!-- Login Page -->
+<div class="page login">
+  <h1>Login</h1>
+  <form id="login-form">
+    <input type="email" id="login-email" placeholder="Email" required>
+    <input type="password" id="login-password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+  <button class="back-home"><span class="icon">&#8592;</span> Back</button>
+</div>
+
+<!-- Dashboard -->
+<div class="page dashboard">
+  <div class="dashboard-header">
+    <h1>Monthly Expense Tracker</h1>
+    <div class="user-profile">
+      <p><strong id="profile-name"></strong></p>
+      <p id="profile-email"></p>
+      <p id="profile-phone"></p>
+    </div>
+  </div>
+
+  <form id="expense-form">
+    <input type="text" id="expense-name" placeholder="Expense Name" required>
+    <input type="number" id="expense-amount" placeholder="Amount" required>
+    <select id="expense-category">
+      <option value="Food">🍔 Food</option>
+      <option value="Rent">🏠 Rent</option>
+      <option value="Transport">🚗 Transport</option>
+      <option value="Others">💡 Others</option>
+    </select>
+    <input type="date" id="expense-date" required>
+    <button type="submit">Add Expense</button>
+  </form>
+
+  <div id="expenses-list">
+    <h2>Expense Details</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="expense-table-body"></tbody>
+    </table>
+  </div>
+
+  <h2>Total: $<span id="total-amount">0</span></h2>
+  <div class="dashboard-footer">
+    <button id="logout-btn">Logout</button>
+    <button class="back-home"><span class="icon">&#8592;</span> Back</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
