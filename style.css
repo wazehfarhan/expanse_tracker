@@ -1,76 +1,88 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f7fa;
-  margin: 0;
-  padding: 0;
+:root{
+  --bg: #f0f6ff;
+  --card:#fff;
+  --text:#0f172a;
+  --muted:#6b7280;
+  --primary:#2563eb;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --ring:#c7d2fe;
+  --shadow: 0 12px 36px rgba(2,6,23,0.08);
 }
-.container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  display: none;
-  text-align: center;
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; font-family:Inter, system-ui, -apple-system, Roboto, 'Segoe UI', Arial}
+body{
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(135deg,#dbeafe 0%, #fdf2f8 100%);
+  padding:28px;
 }
-.container.active {
-  display: block;
+
+/* container */
+.container{
+  width:min(1100px,98vw);
+  background:var(--card);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:20px;
 }
-input, select {
-  width: 90%;
-  padding: 10px;
-  margin: 10px auto;
-  display: block;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-button {
-  width: 95%;
-  padding: 10px;
-  margin: 10px 0;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-button:hover {
-  background: #45a049;
-}
-.link {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.logout-btn {
-  background: #f44336;
-}
-.expense-form input {
-  width: 30%;
-  display: inline-block;
-}
-.expense-form button {
-  width: 25%;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-.reminder {
-  color: red;
-  font-weight: bold;
-}
-.back-btn {
-  background: #777;
+
+/* pages */
+.page{display:none; opacity:0; transform:translateY(10px); transition: .25s ease}
+.page.active{display:block; opacity:1; transform:none}
+
+/* headings */
+h1{font-size:1.6rem; margin-bottom:6px}
+h2,h3{margin:0 0 8px}
+
+/* utility */
+.row{display:flex; gap:10px}
+.row.center{justify-content:center}
+.row.between{justify-content:space-between}
+.row.end{justify-content:flex-end}
+.grid-two{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.grid-four{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:10px}
+
+/* text */
+.muted{color:var(--muted)}
+.icon{font-weight:700}
+
+/* buttons & inputs */
+button{padding:10px 14px;border-radius:10px; border:none; background:var(--primary); color:#fff; cursor:pointer; font-weight:600}
+button:hover{filter:brightness(.95)}
+.btn-light{background:#f3f4f6; color:#111}
+.btn-mini{padding:8px 10px}
+.btn-secondary{background:#111827}
+.btn-danger{background:var(--danger)}
+.link-like{background:transparent; border:none; color:var(--primary); cursor:pointer; text-decoration:underline}
+
+/* inputs */
+input, select{padding:10px; border-radius:8px; border:1px solid #e6eefc; background:#fff}
+
+/* cards & stats */
+.stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:12px 0}
+.card{background:#fbfdff; border:1px solid #eef2ff; padding:12px; border-radius:12px}
+.card-title{color:var(--muted); font-size:.9rem}
+.card-value{font-weight:700; margin-top:6px}
+
+/* panels and tables */
+.panel{background:#fff; border:1px solid #eef2ff; border-radius:12px; padding:12px; margin:10px 0}
+.table-wrap{overflow:auto; border-radius:10px}
+table{width:100%; border-collapse:collapse}
+th,td{padding:10px; text-align:center; border-bottom:1px solid #f1f5f9}
+thead th{background:#fbfbff; font-weight:700}
+
+/* charts area */
+.charts{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px}
+
+/* banners */
+.banner{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; margin-bottom:12px}
+.banner.warning{background:#fff7ed; color:#92400e; border:1px solid #ffe3b8}
+.banner.danger{background:#fff0f0; color:#7f1d1d; border:1px solid #ffc4c4}
+#banner-dismiss,#budget-dismiss{background:transparent; border:none; font-weight:700}
+
+/* responsive */
+@media (max-width:900px){
+  .grid-four{grid-template-columns:1fr 1fr}
+  .charts{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
 }

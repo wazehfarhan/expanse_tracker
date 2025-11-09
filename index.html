@@ -1,88 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expense Tracker</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Smart Expense Tracker — PDF & Budget Alerts</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <div id="home" class="container active">
-    <h1>Welcome to Smart Expense Tracker</h1>
-    <button onclick="showSection('login')">Login</button>
-    <button onclick="showSection('signup')">Sign Up</button>
-  </div>
+  <div class="container">
 
-  <!-- Signup Page -->
-  <div id="signup" class="container">
-    <h2>Create Account</h2>
-    <input type="text" id="firstName" placeholder="First Name" />
-    <input type="text" id="lastName" placeholder="Last Name" />
-    <input type="email" id="signupEmail" placeholder="Email" />
-    <input type="text" id="signupPhone" placeholder="Phone" />
-    <select id="signupGender">
-      <option value="">Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-    <input type="number" id="signupBalance" placeholder="Initial Balance" />
-    <input type="password" id="signupPassword" placeholder="Password" />
-    <button onclick="signUp()">Sign Up</button>
-    <button onclick="showSection('home')" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-  </div>
-
-  <!-- Login Page -->
-  <div id="login" class="container">
-    <h2>Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email" />
-    <input type="password" id="loginPassword" placeholder="Password" />
-    <button onclick="login()">Login</button>
-    <p class="link" onclick="showSection('forgotPassword')">Forgot Password?</p>
-    <button onclick="showSection('home')" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-  </div>
-
-  <!-- Forgot Password -->
-  <div id="forgotPassword" class="container">
-    <h2>Reset Password</h2>
-    <input type="email" id="resetEmail" placeholder="Enter your email" />
-    <input type="password" id="newPassword" placeholder="New Password" />
-    <button onclick="resetPassword()">Reset Password</button>
-    <button onclick="showSection('login')" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
-  </div>
-
-  <!-- Dashboard -->
-  <div id="dashboard" class="container">
-    <div class="top-bar">
-      <h2>Dashboard</h2>
-      <button onclick="logout()" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <!-- HOME -->
+    <div class="page home active" id="home-page">
+      <h1>💰 Smart Expense Tracker</h1>
+      <p class="muted">Track, analyze, and export your monthly reports</p>
+      <div class="row center gap">
+        <button id="go-login">Login</button>
+        <button id="go-signup" class="btn-secondary">Sign Up</button>
+      </div>
     </div>
 
-    <div class="summary">
-      <h3 id="welcomeText"></h3>
-      <p><strong>Total Balance:</strong> $<span id="totalBalance">0</span></p>
-      <p><strong>This Month's Expenses:</strong> $<span id="monthlyExpense">0</span></p>
-      <p><strong>Remaining:</strong> $<span id="remainingBalance">0</span></p>
-      <p id="dailyReminder" class="reminder"></p>
+    <!-- SIGNUP -->
+    <div class="page signup" id="signup-page">
+      <h2>Create Account</h2>
+      <form id="signup-form">
+        <div class="grid-two">
+          <input id="first-name" placeholder="First name" required />
+          <input id="last-name" placeholder="Last name" required />
+        </div>
+        <input id="signup-email" type="email" placeholder="Email" required />
+        <div class="grid-two">
+          <input id="phone" placeholder="Phone" />
+          <select id="gender" required>
+            <option value="">Gender</option><option>Male</option><option>Female</option><option>Other</option>
+          </select>
+        </div>
+        <input id="signup-password" type="password" placeholder="Password" required />
+        <input id="signup-starting-balance" type="number" placeholder="Starting balance for this month" step="0.01" min="0" value="0" required />
+        <div class="row end">
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+
+      <div class="row between" style="margin-top:12px;">
+        <button class="back-home btn-light"><span class="icon">←</span> Back</button>
+        <div class="muted">Have account? <button id="to-login-from-signup" class="link-like">Login</button></div>
+      </div>
     </div>
 
-    <h3>Your Expenses</h3>
-    <div class="expense-form">
-      <input type="text" id="expenseTitle" placeholder="Expense Title" />
-      <input type="number" id="expenseAmount" placeholder="Amount" />
-      <button onclick="addExpense()">Add Expense</button>
+    <!-- LOGIN -->
+    <div class="page login" id="login-page">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input id="login-email" type="email" placeholder="Email" required />
+        <input id="login-password" type="password" placeholder="Password" required />
+        <div class="row end"><button type="submit">Login</button></div>
+
+        <div class="row between" style="margin-top:8px;">
+          <button id="forgot-link" type="button" class="link-like">Forgot Password?</button>
+          <div class="muted">No account? <button id="to-signup-from-login" class="link-like">Sign Up</button></div>
+        </div>
+      </form>
+      <div style="margin-top:12px;"><button class="back-home btn-light"><span class="icon">←</span> Back</button></div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="expenseTable"></tbody>
-    </table>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div class="modal-overlay" id="fp-overlay" hidden>
+      <div class="modal">
+        <h3>Reset Password</h3>
+        <form id="forgot-form">
+          <input id="forgot-email" type="email" placeholder="Account email" required />
+          <input id="forgot-newpass" type="password" placeholder="New password" required />
+          <div class="modal-actions">
+            <button type="button" id="fp-cancel" class="btn-light">Cancel</button>
+            <button type="submit">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="page dashboard" id="dashboard-page">
+      <!-- budget alert -->
+      <div id="budget-alert" class="banner danger" hidden>
+        <strong>Budget Alert:</strong> You have reached or exceeded your budget for this month!
+        <button id="budget-dismiss" aria-label="dismiss">✕</button>
+      </div>
+
+      <!-- daily reminder -->
+      <div id="reminder-banner" class="banner warning" hidden>
+        <span id="banner-text">No expenses added today — a 0-amount entry was created.</span>
+        <button id="banner-dismiss" aria-label="dismiss">✕</button>
+      </div>
+
+      <div class="dashboard-header">
+        <h2>Expense Tracker</h2>
+        <div class="user-profile">
+          <div id="profile-name" class="name"></div>
+          <div id="profile-email" class="muted"></div>
+          <div id="profile-phone" class="muted"></div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="card">
+          <div class="card-title">Starting Balance (this month)</div>
+          <div class="card-value">৳ <span id="stat-starting-balance">0.00</span></div>
+          <div class="row gap" style="margin-top:8px">
+            <input id="set-starting-balance" type="number" placeholder="Update starting balance" step="0.01" min="0" />
+            <button id="save-starting-balance" class="btn-mini">Save</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Total Expense (this month)</div>
+          <div class="card-value">৳ <span id="stat-total-month">0.00</span></div>
+          <div class="row gap" style="margin-top:8px">
+            <input id="set-month-budget" type="number" placeholder="Set budget" step="0.01" min="0" />
+            <button id="save-month-budget" class="btn-mini">Set Budget</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Remaining</div>
+          <div class="card-value">৳ <span id="stat-remaining">0.00</span></div>
+        </div>
+      </div>
+
+      <form id="expense-form" class="panel">
+        <div class="grid-four">
+          <input id="expense-name" placeholder="Expense Name" required />
+          <input id="expense-amount" type="number" placeholder="Amount" step="0.01" min="0" required />
+          <select id="expense-category">
+            <option value="Food">🍔 Food</option>
+            <option value="Rent">🏠 Rent</option>
+            <option value="Transport">🚗 Transport</option>
+            <option value="Others">💡 Others</option>
+          </select>
+          <input id="expense-date" type="date" required />
+        </div>
+        <div class="row end" style="margin-top:10px"><button type="submit">Add Expense</button></div>
+      </form>
+
+      <div id="expenses-list" class="panel">
+        <div class="row between center">
+          <h3>Expense Details</h3>
+          <div id="month-label" class="muted"></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Amount</th><th>Category</th><th>Date</th><th>Action</th></tr>
+            </thead>
+            <tbody id="expense-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="charts panel" id="report-area">
+        <div>
+          <canvas id="categoryChart"></canvas>
+        </div>
+        <div>
+          <canvas id="weeklyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="row between" style="margin-top:12px">
+        <div class="muted">Total (all): ৳ <span id="total-amount">0.00</span></div>
+        <div class="row gap">
+          <button id="download-month-pdf">Download Monthly PDF</button>
+          <button id="logout-btn" class="btn-danger">Logout</button>
+        </div>
+      </div>
+
+      <div style="height:18px"></div>
+      <div class="row" style="justify-content:flex-end;">
+        <button class="back-home btn-light"><span class="icon">←</span> Home</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
